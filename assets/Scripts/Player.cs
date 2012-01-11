@@ -38,7 +38,7 @@ public class Player : MonoBehaviour {
     /** Axis of rotation */
     private static Vector3 rotationAxis = Vector3.forward;
     /** Is sphereCastOne hit game object */
-    private bool sphereCastOne;
+    public bool sphereCastOne;
     /** Is sphereCastTwo hit game object */
     private bool sphereCastTwo;
     /** Was near wall */

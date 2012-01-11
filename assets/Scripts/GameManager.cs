@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour {
 	
 	/** Game end. */
 	void Update () {
-        if (Player.hit.collider.name == EXIT_POINT) {
-            Player.playerSpeed = 0;
+        if (Player.hit.collider != null) {
+            if (Player.hit.collider.name == EXIT_POINT) {
+                Player.playerSpeed = 0;
+            }
         }
 	}
 }
