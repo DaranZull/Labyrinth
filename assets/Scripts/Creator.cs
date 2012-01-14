@@ -22,8 +22,6 @@ public class Creator : MonoBehaviour {
     private const char EXIT = 'E';
     /** Line feed character. */
     private const char LINE_FEED = '\n';
-    /** File contents. */
-    private static string fileContents;
     /** Array of content char. */
     private static char[] contentChar;
     /** X location. */
@@ -32,6 +30,8 @@ public class Creator : MonoBehaviour {
     private static int locationY = 0;
     /** Z location. */
     private static int locationZ = 0;
+    /** Exit prefab. */
+    public GameObject exitPrefab;
     /** Player prefab. */
     public GameObject playerPreFab;
 
@@ -41,12 +41,13 @@ public class Creator : MonoBehaviour {
      */
     void Start() {
         using (StreamReader sr = new StreamReader(Application.dataPath + "/" + FILE_NAME)) {
+            string fileContents;
             while ((fileContents = sr.ReadLine()) != null) {
                 contentChar = fileContents.ToCharArray();
                 for (int i = 0; i < contentChar.Length; i++) {
                     switch (contentChar[i]) { 
                         case PICK:
-                            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                             cube.transform.position = new Vector3(locationX, locationY, locationZ);
                             locationX++;
                             break;
@@ -54,13 +55,11 @@ public class Creator : MonoBehaviour {
                             locationX++;
                             break;
                         case START:
-                            Instantiate(playerPreFab, transform.position = 
-                                new Vector3(locationX, locationY, locationZ), transform.rotation);
+                            Instantiate(playerPreFab, new Vector3(locationX, locationY, locationZ), transform.rotation);
                             locationX++;
                             break;
                         case EXIT:
-                            GameObject.FindGameObjectWithTag(EXIT_POINT).transform.position =
-                                new Vector3(locationX, locationY, locationZ);
+                            Instantiate(exitPrefab, new Vector3(locationX, locationY, locationZ), transform.rotation);
                             locationX++;
                             break;
                         default:
